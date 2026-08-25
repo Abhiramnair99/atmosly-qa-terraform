@@ -18,12 +18,19 @@ variable "region" {
   default     = "us-east-2"
 }
 
+variable "owner" {
+  type        = string
+  description = "Probe variable. Surfaces in a tag so variable pass-through is visible in a plan diff."
+  default     = "unset"
+}
+
 resource "aws_s3_bucket" "qa" {
   bucket_prefix = "atmosly-qa-"
 
   tags = {
     ManagedBy = "atmosly"
     Purpose   = "infra-management-qa"
+    Owner     = var.owner
   }
 }
 
@@ -33,4 +40,8 @@ output "bucket_name" {
 
 output "bucket_arn" {
   value = aws_s3_bucket.qa.arn
+}
+
+output "owner_seen_by_terraform" {
+  value = var.owner
 }
