@@ -25,7 +25,7 @@ variable "owner" {
 }
 
 resource "aws_s3_bucket" "qa" {
-  bucket_prefix = "atmosly-qa-"
+  bucket_prefix = "atmosly-qa-r2-"
 
   tags = {
     ManagedBy = "atmosly"
