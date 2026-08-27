@@ -31,7 +31,7 @@ resource "aws_s3_bucket" "qa" {
     ManagedBy = "atmosly"
     Purpose   = "infra-management-qa"
     Owner     = var.owner
-    CaseThree = "case5-commit-B"
+    CaseThree = "case5-commit-C-STALE-TEST"
   }
 }
 
