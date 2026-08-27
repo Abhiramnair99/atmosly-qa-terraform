@@ -45,3 +45,10 @@ output "bucket_arn" {
 output "owner_seen_by_terraform" {
   value = var.owner
 }
+
+# QA CASE 2: plan-time failure probe.
+# Init succeeds (config is syntactically valid); plan fails when AWS is queried
+# for a bucket that does not exist. Remove after the plan-failure test.
+data "aws_s3_bucket" "qa_case2_missing" {
+  bucket = "atmosly-qa-does-not-exist-9f3a2c71"
+}
