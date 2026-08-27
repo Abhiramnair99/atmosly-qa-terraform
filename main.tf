@@ -10,6 +10,17 @@ terraform {
 
 provider "aws" {
   region = var.region
+
+  # Pin the account this configuration is allowed to touch. If the executor's
+  # credentials resolve to any other account, Terraform fails before it can
+  # create or destroy anything.
+  allowed_account_ids = [var.aws_account_id]
+}
+
+variable "aws_account_id" {
+  type        = string
+  description = "AWS account this workspace is allowed to deploy into (atmosly-testing)."
+  default     = "767398031518"
 }
 
 variable "region" {
@@ -45,4 +56,16 @@ output "bucket_arn" {
 
 output "owner_seen_by_terraform" {
   value = var.owner
+}
+
+# Reports the identity Atmosly's executor actually authenticates as, so the
+# account/role in use is visible in the run output rather than assumed.
+data "aws_caller_identity" "current" {}
+
+output "aws_account_id" {
+  value = data.aws_caller_identity.current.account_id
+}
+
+output "aws_caller_arn" {
+  value = data.aws_caller_identity.current.arn
 }
