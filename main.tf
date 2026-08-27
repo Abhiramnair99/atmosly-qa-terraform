@@ -31,7 +31,7 @@ resource "aws_s3_bucket" "qa" {
     ManagedBy = "atmosly"
     Purpose   = "infra-management-qa"
     Owner     = var.owner
-    CaseThree = "drift-probe-1"
+    CaseThree = "case5-plan-A"
   }
 }
 
